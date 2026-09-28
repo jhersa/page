@@ -1,7 +1,7 @@
 <script setup>
 
 const props = defineProps({
-    buttonClass: {
+    accent: {
         type: String,
         required: true,
     },
@@ -21,6 +21,11 @@ const props = defineProps({
         required: true,
     },
 
+    command: {
+        type: String,
+        required: true,
+    },
+
     label: {
         type: String,
         required: true,
@@ -29,96 +34,70 @@ const props = defineProps({
 </script>
 
 <template>
-    <a class="button" :class="props.buttonClass" :href="props.href" target="_blank" rel="noopener">
+    <a class="cmd-line" :class="props.accent" :href="props.href" target="_blank" rel="noopener">
+        <span class="prompt">$</span>
+        <span class="cmd">open</span>
         <img class="icon" :src="props.iconSrc" :alt="props.iconAlt" fetchpriority="high" />
-        {{ props.label }}
+        <span class="arg">{{ props.command }}</span>
+        <span class="hint">{{ props.label }}</span>
     </a>
 </template>
 
 <style scoped>
-.button,
-button {
-    display: inline-block;
-    text-decoration: none;
-    height: 48px;
-    text-align: center;
-    vertical-align: middle;
-    font-size: 18px;
-    width: 300px;
+.cmd-line {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.5em 0.75em;
+    border-radius: 4px;
+    color: var(--fg);
+    transition: background-color 0.15s;
+}
+
+.cmd-line:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--fg);
+}
+
+.prompt {
+    color: var(--green);
     font-weight: 700;
-    line-height: 48px;
-    letter-spacing: 0.1px;
-    white-space: wrap;
-    border-radius: 8px;
-    cursor: pointer;
 }
 
-button:hover,
-.button:focus {
-    color: #333;
-    border-color: #888;
-    outline: 0;
-}
-
-.button.button-primary {
-    color: #FFF;
-    filter: brightness(90%)
-}
-
-.button.button-primary:hover,
-.button.button-primary:focus {
-    color: #FFF;
-    filter: brightness(90%)
+.cmd {
+    color: var(--cyan);
 }
 
 .icon {
-    padding: 0px 8px 3.5px 0px;
-    vertical-align: middle;
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
+    filter: grayscale(1) brightness(2);
+    opacity: 0.85;
 }
 
-.button.button-default {
-    color: #FFFFFF;
-    background-color: #0085FF
+.arg {
+    font-weight: 700;
 }
 
-.button.button-default:hover,
-.button.button-default:focus {
-    filter: brightness(90%)
+.hint {
+    margin-left: auto;
+    color: var(--comment);
+    font-size: 0.85em;
 }
 
-
-/* Github */
-.button.button-github {
-    color: #FFFFFF;
-    background-color: #000000
+.accent-fg .arg {
+    color: var(--fg);
 }
 
-.button.button-github:hover,
-.button.button-github:focus {
-    filter: brightness(90%)
+.accent-blue .arg {
+    color: var(--blue);
 }
 
-/* LinkedIn */
-.button.button-linkedin {
-    color: #FFFFFF;
-    background-color: #2867B2
+.accent-green .arg {
+    color: var(--green);
 }
 
-.button.button-linkedin:hover,
-.button.button-linkedin:focus {
-    filter: brightness(90%)
-}
-
-/* Minecraft */
-.button.button-minecraft {
-    color: #FFFFFF;
-    background-color: #558B2F
-}
-
-.button.button-reddit:hover,
-.button.button-reddit:focus {
-    filter: brightness(90%)
+.cmd-line:hover .arg {
+    color: var(--yellow);
 }
 </style>
