@@ -23,7 +23,7 @@ onMounted(() => {
 onUnmounted(() => clearInterval(timer));
 
 const info = [
-  { key: 'os', value: 'ManjaroLinux' },
+  { key: 'os', value: 'Debian' },
   { key: 'host', value: 'suave.sh' },
   { key: 'shell', value: '/bin/zsh' },
 ];
