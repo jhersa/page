@@ -24,9 +24,9 @@ const products = [
 </script>
 
 <template>
-  <p class="prompt-line">
+  <div class="prompt-line">
     <Prompt path="~/blacklabs" />ls -lha
-  </p>
+  </div>
   <p class="total">total {{ products.length }}</p>
 
   <div class="ls-table">

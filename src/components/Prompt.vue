@@ -2,62 +2,102 @@
 defineProps({
   path: {
     type: String,
-    default: '~/suave.sh',
+    default: '~',
   },
   branch: {
     type: String,
     default: '',
   },
-  dirty: {
+  modified: {
+    type: Number,
+    default: 0,
+  },
+  untracked: {
+    type: Number,
+    default: 0,
+  },
+  ok: {
     type: Boolean,
-    default: false,
+    default: true,
   },
 });
 </script>
 
 <template>
-  <span class="p10k">
-    <span class="seg seg-path" :class="{ 'seg-last': !branch }">{{ path }}</span>
-    <span v-if="branch" class="seg seg-last" :class="dirty ? 'seg-dirty' : 'seg-clean'">{{ branch }}</span>
-    <span class="arrow">&#10095;</span>
-  </span>
+  <div class="ctx-line">
+    <span class="nf os-icon">&#xf312;</span>
+    <span class="nf dir-icon">&#xf07c;</span>
+    <span class="path">{{ path }}</span>
+    <template v-if="branch">
+      <span class="connector">on</span>
+      <span class="nf branch-icon">&#xe725;</span>
+      <span class="branch">{{ branch }}</span>
+      <span v-if="modified" class="modified">!{{ modified }}</span>
+      <span v-if="untracked" class="untracked">?{{ untracked }}</span>
+    </template>
+  </div>
+  <span class="arrow" :class="ok ? 'arrow-ok' : 'arrow-err'">&#10095;</span>
 </template>
 
 <style scoped>
-.p10k {
-  display: inline-flex;
+.ctx-line {
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  font-weight: 700;
-  margin-right: 0.6em;
+  gap: 0.4em;
+  color: var(--comment);
   font-size: 0.85em;
-  vertical-align: middle;
+  margin-bottom: 0.15rem;
 }
 
-.seg {
-  padding: 0.15em 0.6em;
-  color: var(--bg);
-  white-space: nowrap;
+.nf {
+  font-family: "Symbols Nerd Font";
 }
 
-.seg-path {
-  background: var(--blue);
-  border-radius: 4px 0 0 4px;
+.os-icon {
+  color: #35bf5c;
 }
 
-.seg-clean {
-  background: var(--green);
+.dir-icon {
+  color: var(--blue);
 }
 
-.seg-dirty {
-  background: var(--yellow);
+.path {
+  color: var(--blue);
+  font-weight: 700;
 }
 
-.seg-last {
-  border-radius: 0 4px 4px 0;
+.connector {
+  color: var(--comment);
+}
+
+.branch-icon,
+.branch {
+  color: var(--green);
+}
+
+.branch {
+  font-weight: 700;
+}
+
+.modified {
+  color: var(--yellow);
+}
+
+.untracked {
+  color: var(--cyan);
 }
 
 .arrow {
+  font-weight: 700;
+  margin-right: 0.6em;
+}
+
+.arrow-ok {
   color: var(--green);
-  margin-left: 0.5em;
+}
+
+.arrow-err {
+  color: var(--red);
 }
 </style>

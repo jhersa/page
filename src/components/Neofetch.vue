@@ -30,9 +30,9 @@ const info = [
 </script>
 
 <template>
-  <p class="prompt-line">
+  <div class="prompt-line">
     <Prompt path="~" branch="main" />neofetch
-  </p>
+  </div>
 
   <div class="neofetch">
     <img src="/avatar.svg" class="nf-avatar" alt="avatar" />
