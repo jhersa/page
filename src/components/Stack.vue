@@ -1,17 +1,20 @@
 <script setup>
 import Prompt from './Prompt.vue';
+import OpenTofuIcon from './icons/OpenTofuIcon.vue';
 
 const stack = [
-  { name: 'Kubernetes', color: '#326CE5' },
-  { name: 'Docker', color: '#2496ED' },
-  { name: 'AWS', color: '#FF9900' },
-  { name: 'Google Cloud', color: '#4285F4' },
-  { name: 'Terraform', color: '#844FBA' },
-  { name: 'Ansible', color: '#EE0000' },
-  { name: 'GitHub Actions', color: '#2088FF' },
-  { name: 'Python', color: '#3776AB' },
-  { name: 'Go', color: '#00ADD8' },
-  { name: 'GitLab Runner', color: '#FC6D26' },
+  { name: 'Kubernetes', icon: '', color: '#326CE5' },
+  { name: 'Docker', icon: '', color: '#2496ED' },
+  { name: 'AWS', icon: '', color: '#FF9900' },
+  { name: 'Google Cloud', icon: '', color: '#4285F4' },
+  { name: 'OpenTofu', svg: true, color: '#FEDA15' },
+  { name: 'Ansible', icon: '', color: '#EE0000' },
+  { name: 'GitHub Actions', icon: '', color: '#2088FF' },
+  { name: 'GitLab Runner', icon: '', color: '#FC6D26' },
+  { name: 'Helm', icon: '', color: '#0F1689' },
+  { name: 'Node.js', icon: '', color: '#539E43' },
+  { name: 'Python', icon: '', color: '#3776AB' },
+  { name: 'Go', icon: '', color: '#00ADD8' },
 ];
 </script>
 
@@ -22,7 +25,8 @@ const stack = [
 
   <ul class="stack">
     <li v-for="tool in stack" :key="tool.name" class="tool">
-      <span class="dot" :style="{ backgroundColor: tool.color }"></span>
+      <OpenTofuIcon v-if="tool.svg" class="icon-svg" :style="{ color: tool.color }" />
+      <span v-else class="nf" :style="{ color: tool.color }">{{ tool.icon }}</span>
       {{ tool.name }}
     </li>
   </ul>
@@ -53,10 +57,15 @@ const stack = [
   font-size: 0.85em;
 }
 
-.dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  display: inline-block;
+.nf {
+  font-family: "Symbols Nerd Font";
+  font-size: 1.1em;
+  line-height: 1;
+}
+
+.icon-svg {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
 }
 </style>
