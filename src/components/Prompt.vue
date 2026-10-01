@@ -25,7 +25,7 @@ defineProps({
 
 <template>
   <div class="ctx-line">
-    <span class="nf os-icon">&#xf312;</span>
+    <span class="nf os-icon">&#xf306;</span>
     <span class="nf dir-icon">&#xf07c;</span>
     <span class="path">{{ path }}</span>
     <template v-if="branch">
@@ -55,7 +55,7 @@ defineProps({
 }
 
 .os-icon {
-  color: #35bf5c;
+  color: #a81d33;
 }
 
 .dir-icon {
