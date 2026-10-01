@@ -1,16 +1,17 @@
 :root {
-  /* Paleta tomada del perfil "Leviatan 1.2" de iTerm2 */
+  /* Paleta del tema "Monokai Vibrant" (github.com/dylantmarsh/monokai-vibrant) */
   --bg: #16171d;
   --bg-panel: #1b1c23;
   --bg-header: #21222b;
   --fg: #f8f8f0;
-  --comment: #7f8087;
-  --red: #cd3131;
-  --green: #23d18b;
-  --yellow: #f5f543;
-  --blue: #3b8eea;
-  --cyan: #29b8db;
-  --magenta: #d670d6;
+  --comment: #5c6370;
+  --red: #ff3f4f;
+  --green: #81f900;
+  --yellow: #ffd945;
+  --orange: #ff9700;
+  --blue: #00a0e4;
+  --cyan: #19d1e5;
+  --magenta: #e373ce;
 
   color-scheme: dark;
   color: var(--fg);
@@ -49,8 +50,8 @@ body {
   padding: 4vh 1.25rem;
   background: var(--bg);
   background-image:
-    radial-gradient(circle at 20% 10%, rgba(35, 209, 139, 0.06), transparent 40%),
-    radial-gradient(circle at 80% 80%, rgba(214, 112, 214, 0.06), transparent 40%);
+    radial-gradient(circle at 20% 10%, rgba(129, 249, 0, 0.06), transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(227, 115, 206, 0.06), transparent 40%);
 }
 
 h1 {

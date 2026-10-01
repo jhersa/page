@@ -98,6 +98,6 @@ const props = defineProps({
 }
 
 .cmd-line:hover .arg {
-    color: var(--yellow);
+    color: var(--orange);
 }
 </style>
