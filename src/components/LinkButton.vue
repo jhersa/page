@@ -1,4 +1,5 @@
 <script setup>
+import { formatLsDate, formatLsSize } from '../lib/ls';
 
 const props = defineProps({
     accent: {
@@ -31,41 +32,61 @@ const props = defineProps({
         required: true,
     }
 });
+
+const mtime = formatLsDate();
 </script>
 
 <template>
-    <a class="cmd-line" :class="props.accent" :href="props.href" target="_blank" rel="noopener">
-        <span class="prompt">$</span>
-        <span class="cmd">open</span>
-        <img class="icon" :src="props.iconSrc" :alt="props.iconAlt" fetchpriority="high" />
-        <span class="arg">{{ props.command }}</span>
+    <a class="ls-row" :class="props.accent" :href="props.href" target="_blank" rel="noopener">
+        <span class="meta">
+            <span class="perms">-rwxr-xr-x</span>
+            <span class="owner">jhersa</span>
+            <span class="group">staff</span>
+            <span class="size">{{ formatLsSize(props.href.length) }}</span>
+            <span class="date">{{ mtime }}</span>
+        </span>
+        <span class="name">
+            <img class="icon" :src="props.iconSrc" :alt="props.iconAlt" fetchpriority="high" />
+            <span class="arg">{{ props.command }}</span>
+        </span>
         <span class="hint">{{ props.label }}</span>
     </a>
 </template>
 
 <style scoped>
-.cmd-line {
+.ls-row {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 0.5em;
-    padding: 0.5em 0.75em;
+    column-gap: 0.75em;
+    row-gap: 0.15em;
+    padding: 0.3em 0.75em;
     border-radius: 4px;
     color: var(--fg);
+    font-size: 0.9em;
     transition: background-color 0.15s;
 }
 
-.cmd-line:hover {
+.ls-row:hover {
     background-color: rgba(255, 255, 255, 0.05);
     color: var(--fg);
 }
 
-.prompt {
-    color: var(--green);
-    font-weight: 700;
+.meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75em;
+    color: var(--comment);
 }
 
-.cmd {
-    color: var(--cyan);
+.perms {
+    color: var(--magenta);
+}
+
+.name {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
 }
 
 .icon {
@@ -82,7 +103,7 @@ const props = defineProps({
 .hint {
     margin-left: auto;
     color: var(--comment);
-    font-size: 0.85em;
+    font-size: 0.9em;
 }
 
 .accent-fg .arg {
@@ -97,7 +118,14 @@ const props = defineProps({
     color: var(--green);
 }
 
-.cmd-line:hover .arg {
+.ls-row:hover .arg {
     color: var(--orange);
+}
+
+@media (max-width: 600px) {
+    .owner,
+    .group {
+        display: none;
+    }
 }
 </style>

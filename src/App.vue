@@ -1,6 +1,10 @@
 <script setup>
 import Welcome from './components/Welcome.vue'
+import Neofetch from './components/Neofetch.vue'
+import Stack from './components/Stack.vue'
+import ProjectsList from './components/ProjectsList.vue'
 import LinkButton from './components/LinkButton.vue';
+import Prompt from './components/Prompt.vue';
 
 const linkButtons = [
   {
@@ -43,12 +47,16 @@ const linkButtons = [
     </div>
 
     <div class="terminal-body">
-      <img src="/avatar.svg" class="avatar" alt="Suave logo" />
-
       <Welcome msg="Suave.SH" description="DevSecOps | SRE | Cloud Architect | Sysadmin." />
 
+      <Neofetch />
+
+      <Stack />
+
+      <ProjectsList />
+
       <p class="prompt-line">
-        <span class="prompt">$</span> ls ~/links
+        <Prompt path="~/links" />ls -lha
       </p>
 
       <div class="link-section">
@@ -63,8 +71,8 @@ const linkButtons = [
         />
       </div>
 
-      <p class="prompt-line">
-        <span class="prompt">$</span><span class="cursor">▌</span>
+      <p class="prompt-line final">
+        <Prompt path="~" branch="main" /><span class="cursor">&#9615;</span>
       </p>
     </div>
   </div>
@@ -119,25 +127,13 @@ const linkButtons = [
   text-align: left;
 }
 
-.avatar {
-  display: block;
-  height: 6em;
-  margin: 0 auto 1.5rem;
-}
-
-.avatar:hover {
-  filter: drop-shadow(0 0 1.2em var(--green));
-}
-
 .prompt-line {
   margin: 1.5rem 0 0.75rem;
   color: var(--fg);
 }
 
-.prompt {
-  color: var(--green);
-  font-weight: 700;
-  margin-right: 0.5em;
+.prompt-line.final {
+  margin-bottom: 0;
 }
 
 .cursor {
