@@ -55,9 +55,9 @@ const linkButtons = [
 
       <ProjectsList />
 
-      <p class="prompt-line">
+      <div class="prompt-line">
         <Prompt path="~/links" />ls -lha
-      </p>
+      </div>
 
       <div class="link-section">
         <LinkButton v-for="link in linkButtons"
@@ -71,9 +71,9 @@ const linkButtons = [
         />
       </div>
 
-      <p class="prompt-line final">
-        <Prompt path="~" branch="main" /><span class="cursor">&#9615;</span>
-      </p>
+      <div class="prompt-line final">
+        <Prompt path="~/page" branch="main" :modified="2" :untracked="1" /><span class="cursor">&#9615;</span>
+      </div>
     </div>
   </div>
 </template>

@@ -15,16 +15,16 @@ const { display: typedDescription, done: descDone } = useTypewriter(props.descri
 </script>
 
 <template>
-  <p class="prompt-line">
+  <div class="prompt-line">
     <Prompt path="~" />whoami
-  </p>
+  </div>
   <h1 class="output name">
     {{ typedMsg }}<span v-if="!msgDone" class="type-cursor">&#9615;</span>
   </h1>
 
-  <p class="prompt-line">
+  <div class="prompt-line">
     <Prompt path="~" />cat role.txt
-  </p>
+  </div>
   <p class="output description">
     {{ typedDescription }}<span v-if="msgDone && !descDone" class="type-cursor">&#9615;</span>
   </p>

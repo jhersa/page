@@ -1,3 +1,9 @@
+@font-face {
+  font-family: "Symbols Nerd Font";
+  src: url("/fonts/SymbolsNerdFont-Regular.woff2") format("woff2");
+  font-display: swap;
+}
+
 :root {
   /* Paleta del tema "Monokai Vibrant" (github.com/dylantmarsh/monokai-vibrant) */
   --bg: #16171d;

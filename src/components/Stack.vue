@@ -16,9 +16,9 @@ const stack = [
 </script>
 
 <template>
-  <p class="prompt-line">
+  <div class="prompt-line">
     <Prompt path="~" />cat stack.txt
-  </p>
+  </div>
 
   <ul class="stack">
     <li v-for="tool in stack" :key="tool.name" class="tool">
