@@ -35,7 +35,7 @@ defineProps({
 }
 
 .name {
-  color: var(--magenta);
+  color: var(--red);
   font-size: 1.8em;
 }
 
