@@ -5,19 +5,19 @@
 }
 
 :root {
-  /* Paleta del tema "Monokai Vibrant" (github.com/dylantmarsh/monokai-vibrant) */
-  --bg: #16171d;
-  --bg-panel: #1b1c23;
-  --bg-header: #21222b;
+  /* Paleta del tema "Laetus Black" (extensión 10f.laetus, activa en VS Code) */
+  --bg: #0a0a0a;
+  --bg-panel: #141414;
+  --bg-header: #1c1c1c;
   --fg: #f8f8f0;
-  --comment: #5c6370;
-  --red: #ff3f4f;
-  --green: #81f900;
-  --yellow: #ffd945;
-  --orange: #ff9700;
-  --blue: #00a0e4;
-  --cyan: #19d1e5;
-  --magenta: #e373ce;
+  --comment: rgba(255, 255, 255, 0.4);
+  --red: #ff5252;
+  --green: #b2ff59;
+  --yellow: #ffff00;
+  --orange: #ffab40;
+  --blue: #40c4ff;
+  --cyan: #40c4ff;
+  --magenta: #e040fb;
 
   color-scheme: dark;
   color: var(--fg);
@@ -56,8 +56,8 @@ body {
   padding: 4vh 1.25rem;
   background: var(--bg);
   background-image:
-    radial-gradient(circle at 20% 10%, rgba(129, 249, 0, 0.06), transparent 40%),
-    radial-gradient(circle at 80% 80%, rgba(227, 115, 206, 0.06), transparent 40%);
+    radial-gradient(circle at 20% 10%, rgba(178, 255, 89, 0.06), transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(224, 64, 251, 0.06), transparent 40%);
 }
 
 h1 {
