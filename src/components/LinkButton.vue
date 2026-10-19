@@ -92,8 +92,11 @@ const mtime = formatLsDate();
 .icon {
     width: 16px;
     height: 16px;
-    filter: grayscale(1) brightness(2);
     opacity: 0.85;
+}
+
+:root[data-theme="light"] .icon {
+    filter: invert(1);
 }
 
 .arg {
