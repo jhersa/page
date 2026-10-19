@@ -1,16 +1,33 @@
 <script setup>
 import Prompt from './Prompt.vue';
-import { useTypewriter } from '../composables/useTypewriter';
+import { useTypewriterLoop } from '../composables/useTypewriterLoop';
 
 const props = defineProps({
   msg: String,
   description: String,
 })
 
-const { display: typedMsg, done: msgDone } = useTypewriter(props.msg, { speed: 90 });
-const { display: typedDescription, done: descDone } = useTypewriter(props.description, {
-  speed: 20,
-  delay: props.msg.length * 90 + 400,
+const { display: typedMsg } = useTypewriterLoop([props.msg], {
+  typeSpeed: 90,
+  deleteSpeed: 45,
+  holdTime: 2000,
+  gapTime: 400,
+  loop: true,
+});
+
+const roles = props.description
+  .replace(/\.$/, '')
+  .split('|')
+  .map((role) => role.trim());
+
+const { display: typedDescription } = useTypewriterLoop([...roles, props.description], {
+  typeSpeed: 50,
+  deleteSpeed: 30,
+  holdTime: 900,
+  finalHoldTime: 6000,
+  gapTime: 250,
+  startDelay: props.msg.length * 90 + 600,
+  loop: true,
 });
 </script>
 
@@ -19,14 +36,14 @@ const { display: typedDescription, done: descDone } = useTypewriter(props.descri
     <Prompt path="~" />whoami
   </div>
   <h1 class="output name">
-    {{ typedMsg }}<span v-if="!msgDone" class="type-cursor">&#9615;</span>
+    {{ typedMsg }}<span class="type-cursor">&#9615;</span>
   </h1>
 
   <div class="prompt-line">
     <Prompt path="~" />cat role.txt
   </div>
   <p class="output description">
-    {{ typedDescription }}<span v-if="msgDone && !descDone" class="type-cursor">&#9615;</span>
+    {{ typedDescription }}<span class="type-cursor">&#9615;</span>
   </p>
 </template>
 

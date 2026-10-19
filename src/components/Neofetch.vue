@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 import Prompt from './Prompt.vue';
+import AvatarIcon from './icons/AvatarIcon.vue';
 
 const uptime = ref('0s');
 let startedAt;
@@ -35,7 +36,7 @@ const info = [
   </div>
 
   <div class="neofetch">
-    <img src="/avatar.svg" class="nf-avatar" alt="avatar" />
+    <AvatarIcon class="nf-avatar" />
     <ul class="nf-info">
       <li v-for="item in info" :key="item.key">
         <span class="nf-key">{{ item.key }}</span>

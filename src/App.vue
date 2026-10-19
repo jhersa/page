@@ -1,5 +1,6 @@
 <script setup>
 import TerminalWindow from './components/TerminalWindow.vue'
+import ThemeToggle from './components/ThemeToggle.vue'
 import Welcome from './components/Welcome.vue'
 import Neofetch from './components/Neofetch.vue'
 import Stack from './components/Stack.vue'
@@ -41,6 +42,10 @@ const linkButtons = [
 <template>
   <div class="windows">
     <TerminalWindow title="jhersa@suave.sh: ~">
+      <template #actions>
+        <ThemeToggle />
+      </template>
+
       <Welcome msg="Suave.SH" description="DevSecOps | SRE | Cloud Architect | Sysadmin." />
 
       <Neofetch />

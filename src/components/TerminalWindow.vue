@@ -14,6 +14,9 @@ defineProps({
       <span class="dot dot-yellow"></span>
       <span class="dot dot-green"></span>
       <span class="terminal-title">{{ title }}</span>
+      <div class="terminal-actions">
+        <slot name="actions" />
+      </div>
     </div>
 
     <div class="terminal-body">
@@ -28,8 +31,8 @@ defineProps({
   border-radius: 10px;
   overflow: hidden;
   background: var(--bg-panel);
-  border: 1px solid #000;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--border);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
 
 .terminal-header {
@@ -38,7 +41,13 @@ defineProps({
   gap: 8px;
   padding: 10px 14px;
   background: var(--bg-header);
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid var(--border);
+}
+
+.terminal-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
 }
 
 .dot {
