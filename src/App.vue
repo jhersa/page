@@ -5,36 +5,36 @@ import Welcome from './components/Welcome.vue'
 import Neofetch from './components/Neofetch.vue'
 import Stack from './components/Stack.vue'
 import ProjectsList from './components/ProjectsList.vue'
-import LinkButton from './components/LinkButton.vue';
+import Card from './components/Card.vue';
 import Prompt from './components/Prompt.vue';
 
-const linkButtons = [
+const links = [
   {
     id: 1,
-    accent: 'accent-fg',
     href: 'https://github.com/jhersa',
     iconSrc: 'github.svg',
     iconAlt: 'GitHub Logo',
-    command: 'github',
     label: 'GitHub',
+    description: 'Repos y proyectos.',
+    color: 'var(--fg)',
   },
   {
     id: 2,
-    accent: 'accent-blue',
     href: 'https://www.linkedin.com/in/jhersa/',
     iconSrc: 'linkedin.svg',
     iconAlt: 'LinkedIn Logo',
-    command: 'linkedin',
     label: 'LinkedIn',
+    description: 'Trayectoria profesional.',
+    color: 'var(--blue)',
   },
   {
     id: 3,
-    accent: 'accent-green',
     href: 'mailto:test@test.dev',
     iconSrc: 'email.svg',
     iconAlt: 'Email Icon',
-    command: 'mail',
     label: 'Email',
+    description: 'Hablemos.',
+    color: 'var(--green)',
   },
 ];
 </script>
@@ -57,18 +57,19 @@ const linkButtons = [
       <ProjectsList />
 
       <div class="prompt-line">
-        <Prompt path="~/links" />ls -lha
+        <Prompt path="~/links" />bash ./links.sh
       </div>
 
-      <div class="link-section">
-        <LinkButton v-for="link in linkButtons"
+      <div class="cards">
+        <Card
+          v-for="link in links"
           :key="link.id"
-          :accent="link.accent"
           :href="link.href"
           :iconSrc="link.iconSrc"
           :iconAlt="link.iconAlt"
-          :command="link.command"
           :label="link.label"
+          :description="link.description"
+          :color="link.color"
         />
       </div>
 
@@ -106,10 +107,9 @@ const linkButtons = [
   50% { opacity: 0; }
 }
 
-.link-section {
+.cards {
   display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  width: 100%;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
 </style>

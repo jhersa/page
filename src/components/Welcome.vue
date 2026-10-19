@@ -40,7 +40,7 @@ const { display: typedDescription } = useTypewriterLoop([...roles, props.descrip
   </h1>
 
   <div class="prompt-line">
-    <Prompt path="~" />cat role.txt
+    <Prompt path="~" />bash ./role.sh
   </div>
   <p class="output description">
     {{ typedDescription }}<span class="type-cursor">&#9615;</span>
