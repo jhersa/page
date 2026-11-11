@@ -180,14 +180,15 @@ a:focus-visible {
   .print > :nth-child(14) { --line: 13; }
 
   /* Bajo el pliegue: espera a entrar en pantalla (App.vue quita la clase) */
+  /* opacity y no visibility: lo pendiente sigue en el orden de tabulación y el árbol de accesibilidad */
   .print.print-pending > * {
-    visibility: hidden;
+    opacity: 0;
     animation: none;
   }
 }
 
 @keyframes line-in {
-  from { visibility: hidden; }
+  from { opacity: 0; }
 }
 
 /* Movimiento reducido: los cursores quedan fijos y las transiciones se anulan */

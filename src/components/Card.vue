@@ -34,7 +34,7 @@ defineProps({
 <template>
   <a class="card" :class="{ 'card-primary': primary }" :href="href" target="_blank" rel="noopener" :style="{ '--accent': color }">
     <span class="card-icon" aria-hidden="true">
-      <img v-if="iconSrc" :src="iconSrc" alt="" />
+      <span v-if="iconSrc" class="card-mask" :style="{ '--icon': `url(${iconSrc})` }"></span>
       <span v-else class="nf">{{ icon }}</span>
     </span>
     <span class="card-label">{{ label }}</span>
@@ -89,13 +89,13 @@ defineProps({
   font-family: "Symbols Nerd Font";
 }
 
-.card-icon img {
+/* El SVG se usa como máscara para que el icono tome el color de acento en ambos temas */
+.card-mask {
   width: 1.5em;
   height: 1.5em;
-}
-
-:root[data-theme="light"] .card-icon img {
-  filter: invert(1);
+  background: var(--accent);
+  -webkit-mask: var(--icon) center / contain no-repeat;
+  mask: var(--icon) center / contain no-repeat;
 }
 
 .card-label {
@@ -109,10 +109,10 @@ defineProps({
   line-height: 1.4;
 }
 
-/* En móvil: icono y nombre en una fila, dos tarjetas por línea */
+/* En móvil: una tarjeta por fila, icono y nombre en la misma línea */
 @media (max-width: 480px) {
   .card {
-    flex: 1 1 calc(50% - 0.375rem);
+    flex: 1 1 100%;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
@@ -128,7 +128,7 @@ defineProps({
 .card-primary {
   flex: 1 1 100%;
   border-color: var(--accent);
-  background: var(--bg-panel);
+  background: color-mix(in srgb, var(--accent) 8%, var(--bg-panel));
 }
 
 .card-primary .card-label {

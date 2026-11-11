@@ -20,13 +20,13 @@ const roles = props.description
   .split('|')
   .map((role) => role.trim());
 
-const { display: typedDescription, done: descDone } = useTypewriterLoop([...roles, props.description], {
-  typeSpeed: 50,
-  deleteSpeed: 30,
-  holdTime: 900,
-  finalHoldTime: 6000,
-  gapTime: 250,
-  startDelay: props.msg.length * 90 + 600,
+// Ritmo corto: el ciclo completo de roles dura ~6s en vez de ~10s.
+const { display: typedDescription, done: descDone } = useTypewriterLoop([...roles, roles.join(' | ')], {
+  typeSpeed: 35,
+  deleteSpeed: 15,
+  holdTime: 500,
+  gapTime: 150,
+  startDelay: props.msg.length * 90 + 300,
   loop: false,
 });
 </script>

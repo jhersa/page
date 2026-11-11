@@ -14,13 +14,14 @@ onMounted(() => {
   const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
   if (reduce || !('IntersectionObserver' in window)) return;
 
+  const reveal = (el) => {
+    el.style.setProperty('--print-delay', '0ms');
+    el.classList.remove('print-pending');
+    io.unobserve(el);
+  };
+
   const io = new IntersectionObserver((entries) => {
-    for (const entry of entries) {
-      if (!entry.isIntersecting) continue;
-      entry.target.style.setProperty('--print-delay', '0ms');
-      entry.target.classList.remove('print-pending');
-      io.unobserve(entry.target);
-    }
+    for (const entry of entries) if (entry.isIntersecting) reveal(entry.target);
   }, { threshold: 0.15 });
 
   document.querySelectorAll('.print').forEach((el) => {
@@ -28,6 +29,12 @@ onMounted(() => {
       el.classList.add('print-pending');
       io.observe(el);
     }
+  });
+
+  // Con teclado, el foco puede llegar antes que el scroll: imprime todo lo pendiente que lo contiene.
+  document.addEventListener('focusin', (e) => {
+    let el;
+    while ((el = e.target.closest?.('.print-pending'))) reveal(el);
   });
 });
 

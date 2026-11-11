@@ -1,32 +1,11 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
 import Prompt from './Prompt.vue';
 import giraffeAscii from './giraffeAscii.js';
 
-const uptime = ref('0s');
-let startedAt;
-let timer;
-
-function formatUptime(ms) {
-  const totalSeconds = Math.floor(ms / 1000);
-  const minutes = Math.floor(totalSeconds / 60);
-  const seconds = totalSeconds % 60;
-  return minutes > 0 ? `${minutes}m ${seconds}s` : `${seconds}s`;
-}
-
-onMounted(() => {
-  startedAt = performance.now();
-  timer = setInterval(() => {
-    uptime.value = formatUptime(performance.now() - startedAt);
-  }, 1000);
-});
-
-onUnmounted(() => clearInterval(timer));
-
 const info = [
+  { key: 'rol', value: 'DevSecOps · SRE · Cloud' },
+  { key: 'foco', value: 'Kubernetes · Terraform · contenedores' },
   { key: 'os', value: 'Debian' },
-  { key: 'host', value: 'suave.sh' },
-  { key: 'shell', value: '/bin/zsh' },
 ];
 </script>
 
@@ -44,8 +23,8 @@ const info = [
         <span class="nf-val">{{ item.value }}</span>
       </li>
       <li>
-        <span class="nf-key">uptime</span>
-        <span class="nf-val">{{ uptime }}</span>
+        <span class="nf-key">contacto</span>
+        <a class="nf-val nf-link" href="https://www.linkedin.com/in/jhersa/" target="_blank" rel="noopener">linkedin.com/in/jhersa<span class="sr-only"> (abre en pestaña nueva)</span></a>
       </li>
     </ul>
   </div>
@@ -98,6 +77,17 @@ const info = [
 
 .nf-val {
   color: var(--fg);
+}
+
+.nf-link {
+  color: var(--blue);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.nf-link:hover {
+  color: var(--blue);
+  text-decoration-thickness: 2px;
 }
 
 @media (max-width: 480px) {
