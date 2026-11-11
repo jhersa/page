@@ -14,7 +14,7 @@ const stack = [
   { name: 'Helm', icon: '', color: '#7b8cff', light: '#0F1689' },
   { name: 'Node.js', icon: '', color: '#539E43' },
   { name: 'Python', icon: '', color: '#3776AB' },
-  { name: 'Go', icon: '', color: '#00ADD8', light: '#00728f' },
+  { name: 'Go', icon: '', color: '#00ADD8', light: '#00728f', wide: true },
 ];
 </script>
 
@@ -32,7 +32,7 @@ const stack = [
       :style="{ '--c': tool.color, '--c-light': tool.light || tool.color }"
     >
       <OpenTofuIcon v-if="tool.svg" class="icon-svg" aria-hidden="true" />
-      <span v-else class="nf" aria-hidden="true">{{ tool.icon }}</span>
+      <span v-else class="nf" :class="{ 'nf-wide': tool.wide }" aria-hidden="true">{{ tool.icon }}</span>
       {{ tool.name }}
     </li>
   </ul>
@@ -83,6 +83,13 @@ const stack = [
 }
 
 /* Algunos logos de marca son demasiado oscuros o claros para un tema; cada uno trae su variante */
+/* Wordmarks como el de Go ocupan poca altura en su caja; se escalan sin mover el layout */
+.nf-wide {
+  display: inline-block;
+  transform: scale(1.6);
+  margin: 0 0.3em;
+}
+
 :root[data-theme="light"] .nf {
   color: var(--c-light);
 }
