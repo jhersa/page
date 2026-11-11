@@ -7,12 +7,12 @@ const props = defineProps({
   description: String,
 })
 
-const { display: typedMsg } = useTypewriterLoop([props.msg], {
+const { display: typedMsg, done: msgDone } = useTypewriterLoop([props.msg], {
   typeSpeed: 90,
   deleteSpeed: 45,
   holdTime: 2000,
   gapTime: 400,
-  loop: true,
+  loop: false,
 });
 
 const roles = props.description
@@ -20,14 +20,14 @@ const roles = props.description
   .split('|')
   .map((role) => role.trim());
 
-const { display: typedDescription } = useTypewriterLoop([...roles, props.description], {
+const { display: typedDescription, done: descDone } = useTypewriterLoop([...roles, props.description], {
   typeSpeed: 50,
   deleteSpeed: 30,
   holdTime: 900,
   finalHoldTime: 6000,
   gapTime: 250,
   startDelay: props.msg.length * 90 + 600,
-  loop: true,
+  loop: false,
 });
 </script>
 
@@ -36,14 +36,16 @@ const { display: typedDescription } = useTypewriterLoop([...roles, props.descrip
     <Prompt path="~" />whoami
   </div>
   <h1 class="output name">
-    {{ typedMsg }}<span class="type-cursor">&#9615;</span>
+    <span aria-hidden="true">{{ typedMsg }}<span v-if="!msgDone" class="type-cursor">&#9615;</span></span>
+    <span class="sr-only">{{ msg }}</span>
   </h1>
 
   <div class="prompt-line">
     <Prompt path="~" />bash ./role.sh
   </div>
   <p class="output description">
-    {{ typedDescription }}<span class="type-cursor">&#9615;</span>
+    <span aria-hidden="true">{{ typedDescription }}<span v-if="msgDone && !descDone" class="type-cursor">&#9615;</span></span>
+    <span class="sr-only">{{ description }}</span>
   </p>
 </template>
 
@@ -59,11 +61,16 @@ const { display: typedDescription } = useTypewriterLoop([...roles, props.descrip
 
 .name {
   color: var(--red);
+  font-family: var(--font-accent);
+  font-weight: 700;
   font-size: 1.8em;
+  letter-spacing: -0.01em;
 }
 
 .description {
-  color: var(--comment);
+  color: var(--orange);
+  font-family: var(--font-accent);
+  font-style: italic;
 }
 
 .type-cursor {

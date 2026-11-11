@@ -1,7 +1,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 import Prompt from './Prompt.vue';
-import AvatarIcon from './icons/AvatarIcon.vue';
 
 const uptime = ref('0s');
 let startedAt;
@@ -31,13 +30,14 @@ const info = [
 </script>
 
 <template>
+  <h2 class="sr-only">Sistema</h2>
   <div class="prompt-line">
     <Prompt path="~" branch="main" />neofetch
   </div>
 
-  <div class="neofetch">
-    <AvatarIcon class="nf-avatar" />
-    <ul class="nf-info">
+  <div class="neofetch print" style="--print-delay: 800ms">
+    <img class="nf-avatar" src="/avatar.svg" alt="avatar" />
+    <ul class="nf-info print" style="--print-delay: 840ms">
       <li v-for="item in info" :key="item.key">
         <span class="nf-key">{{ item.key }}</span>
         <span class="nf-val">{{ item.value }}</span>

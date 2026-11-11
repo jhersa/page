@@ -4,16 +4,20 @@ defineProps({
     type: String,
     default: 'jhersa@suave.sh: ~',
   },
+  label: {
+    type: String,
+    default: '',
+  },
 });
 </script>
 
 <template>
-  <div class="terminal">
+  <section class="terminal" :aria-label="label || title">
     <div class="terminal-header">
-      <span class="dot dot-red"></span>
-      <span class="dot dot-yellow"></span>
-      <span class="dot dot-green"></span>
-      <span class="terminal-title">{{ title }}</span>
+      <span class="dot dot-red" aria-hidden="true"></span>
+      <span class="dot dot-yellow" aria-hidden="true"></span>
+      <span class="dot dot-green" aria-hidden="true"></span>
+      <span class="terminal-title" aria-hidden="true">{{ title }}</span>
       <div class="terminal-actions">
         <slot name="actions" />
       </div>
@@ -22,7 +26,7 @@ defineProps({
     <div class="terminal-body">
       <slot />
     </div>
-  </div>
+  </section>
 </template>
 
 <style scoped>

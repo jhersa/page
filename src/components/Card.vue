@@ -24,21 +24,22 @@ defineProps({
     type: String,
     default: '',
   },
-  iconAlt: {
-    type: String,
-    default: '',
+  primary: {
+    type: Boolean,
+    default: false,
   },
 });
 </script>
 
 <template>
-  <a class="card" :href="href" target="_blank" rel="noopener" :style="{ '--accent': color }">
-    <span class="card-icon">
-      <img v-if="iconSrc" :src="iconSrc" :alt="iconAlt || label" />
+  <a class="card" :class="{ 'card-primary': primary }" :href="href" target="_blank" rel="noopener" :style="{ '--accent': color }">
+    <span class="card-icon" aria-hidden="true">
+      <img v-if="iconSrc" :src="iconSrc" alt="" />
       <span v-else class="nf">{{ icon }}</span>
     </span>
     <span class="card-label">{{ label }}</span>
     <span v-if="description" class="card-desc">{{ description }}</span>
+    <span class="sr-only">(abre en pestaña nueva)</span>
   </a>
 </template>
 
@@ -61,7 +62,17 @@ defineProps({
 .card:hover {
   border-color: var(--accent);
   color: var(--fg);
-  transform: translateY(-2px);
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .card:hover {
+    transform: translateY(-2px);
+  }
 }
 
 .card-icon {
@@ -96,5 +107,31 @@ defineProps({
   font-size: 0.8em;
   color: var(--comment);
   line-height: 1.4;
+}
+
+/* En móvil: icono y nombre en una fila, dos tarjetas por línea */
+@media (max-width: 480px) {
+  .card {
+    flex: 1 1 calc(50% - 0.375rem);
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 0.75rem;
+  }
+
+  .card-desc {
+    flex-basis: 100%;
+  }
+}
+
+/* Acción principal: ocupa toda la fila y tiene borde de acento */
+.card-primary {
+  flex: 1 1 100%;
+  border-color: var(--accent);
+  background: var(--bg-panel);
+}
+
+.card-primary .card-label {
+  font-size: 1.15em;
 }
 </style>

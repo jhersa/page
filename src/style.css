@@ -9,9 +9,13 @@
   --bg: #0a0a0a;
   --bg-panel: #141414;
   --bg-header: #1c1c1c;
-  --border: #000;
+  --border: #2a2a2a;
   --fg: #f8f8f0;
-  --comment: rgba(255, 255, 255, 0.4);
+  --comment: rgba(255, 255, 255, 0.62);
+  --warn: #ffff00;
+  --fg-muted: rgba(255, 255, 255, 0.72);
+  /* Voz de acento: nombre, roles y palabras clave */
+  --font-accent: "Space Mono", "JetBrains Mono", ui-monospace, monospace;
   --red: #ff5252;
   --green: #b2ff59;
   --yellow: #ffff00;
@@ -40,12 +44,14 @@
   --bg-header: #e8e8e8;
   --border: #d0d0d0;
   --fg: #1a1a1a;
-  --comment: rgba(0, 0, 0, 0.45);
+  --comment: rgba(0, 0, 0, 0.65);
+  --warn: #8a5a00;
+  --fg-muted: rgba(0, 0, 0, 0.72);
   --red: #e53935;
-  --green: #388e3c;
+  --green: #2e7d32;
   --yellow: #f9a825;
-  --orange: #ef6c00;
-  --blue: #0277bd;
+  --orange: #b54d00;
+  --blue: #01659f;
   --cyan: #00838f;
   --magenta: #8e24aa;
 
@@ -108,8 +114,8 @@ button:hover {
   border-color: var(--green);
 }
 
-button:focus,
-button:focus-visible {
+button:focus-visible,
+a:focus-visible {
   outline: 2px solid var(--green);
   outline-offset: 2px;
 }
@@ -118,4 +124,76 @@ button:focus-visible {
   width: 100%;
   max-width: 760px;
   margin: 0 auto;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.output-lines {
+  color: var(--fg-muted);
+  list-style: none;
+  margin: 0 0 0.75rem 1.2rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+/* Salida de comando que se imprime línea por línea, como en una terminal real:
+   cada hijo aparece completo e instantáneo, 40ms después del anterior.
+   Visible por defecto: sin JS o con reduced motion no se oculta nada. */
+@media (prefers-reduced-motion: no-preference) {
+  .print > * {
+    animation: line-in 1ms steps(1, end) backwards;
+    animation-delay: calc(var(--print-delay, 0ms) + var(--line, 0) * 40ms);
+  }
+
+  .print > :nth-child(2) { --line: 1; }
+  .print > :nth-child(3) { --line: 2; }
+  .print > :nth-child(4) { --line: 3; }
+  .print > :nth-child(5) { --line: 4; }
+  .print > :nth-child(6) { --line: 5; }
+  .print > :nth-child(7) { --line: 6; }
+  .print > :nth-child(8) { --line: 7; }
+  .print > :nth-child(9) { --line: 8; }
+  .print > :nth-child(10) { --line: 9; }
+  .print > :nth-child(11) { --line: 10; }
+  .print > :nth-child(12) { --line: 11; }
+
+  /* Bajo el pliegue: espera a entrar en pantalla (App.vue quita la clase) */
+  .print.print-pending > * {
+    visibility: hidden;
+    animation: none;
+  }
+}
+
+@keyframes line-in {
+  from { visibility: hidden; }
+}
+
+/* Movimiento reducido: los cursores quedan fijos y las transiciones se anulan */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

@@ -7,26 +7,32 @@ const stack = [
   { name: 'Docker', icon: '', color: '#2496ED' },
   { name: 'AWS', icon: '', color: '#FF9900' },
   { name: 'Google Cloud', icon: '', color: '#4285F4' },
-  { name: 'OpenTofu', svg: true, color: '#FEDA15' },
+  { name: 'OpenTofu', svg: true, color: '#FEDA15', light: '#8a5a00' },
   { name: 'Ansible', icon: '', color: '#EE0000' },
   { name: 'GitHub Actions', icon: '', color: '#2088FF' },
   { name: 'GitLab Runner', icon: '', color: '#FC6D26' },
-  { name: 'Helm', icon: '', color: '#0F1689' },
+  { name: 'Helm', icon: '', color: '#7b8cff', light: '#0F1689' },
   { name: 'Node.js', icon: '', color: '#539E43' },
   { name: 'Python', icon: '', color: '#3776AB' },
-  { name: 'Go', icon: '', color: '#00ADD8' },
+  { name: 'Go', icon: '', color: '#00ADD8', light: '#00728f' },
 ];
 </script>
 
 <template>
+  <h2 class="sr-only">Stack tecnológico</h2>
   <div class="prompt-line">
     <Prompt path="~" />cat stack.txt
   </div>
 
-  <ul class="stack">
-    <li v-for="tool in stack" :key="tool.name" class="tool">
-      <OpenTofuIcon v-if="tool.svg" class="icon-svg" :style="{ color: tool.color }" />
-      <span v-else class="nf" :style="{ color: tool.color }">{{ tool.icon }}</span>
+  <ul class="stack print" style="--print-delay: 1000ms">
+    <li
+      v-for="tool in stack"
+      :key="tool.name"
+      class="tool"
+      :style="{ '--c': tool.color, '--c-light': tool.light || tool.color }"
+    >
+      <OpenTofuIcon v-if="tool.svg" class="icon-svg" aria-hidden="true" />
+      <span v-else class="nf" aria-hidden="true">{{ tool.icon }}</span>
       {{ tool.name }}
     </li>
   </ul>
@@ -55,17 +61,40 @@ const stack = [
   border: 1px solid var(--comment);
   border-radius: 999px;
   font-size: 0.85em;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+/* Mismo lenguaje que las tarjetas de links.sh: el borde toma el color de la herramienta */
+.tool:hover {
+  border-color: var(--c);
+  background-color: color-mix(in srgb, var(--c) 12%, transparent);
+}
+
+:root[data-theme="light"] .tool:hover {
+  border-color: var(--c-light);
+  background-color: color-mix(in srgb, var(--c-light) 10%, transparent);
 }
 
 .nf {
   font-family: "Symbols Nerd Font";
   font-size: 1.1em;
   line-height: 1;
+  color: var(--c);
+}
+
+/* Algunos logos de marca son demasiado oscuros o claros para un tema; cada uno trae su variante */
+:root[data-theme="light"] .nf {
+  color: var(--c-light);
 }
 
 .icon-svg {
   width: 1em;
   height: 1em;
   flex-shrink: 0;
+  color: var(--c);
+}
+
+:root[data-theme="light"] .icon-svg {
+  color: var(--c-light);
 }
 </style>

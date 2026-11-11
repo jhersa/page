@@ -28,20 +28,30 @@ const products = [
 </script>
 
 <template>
+  <h2 class="sr-only">Trabajo</h2>
   <div class="prompt-line">
     <Prompt path="~/work" />bash ./work.sh
   </div>
 
-  <div class="cards">
-    <Card
-      v-for="p in products"
-      :key="p.name"
-      :href="p.href"
-      :label="p.name"
-      :description="p.description"
-      :icon="p.icon"
-      :color="p.color"
-    />
+  <ul class="output-lines print" style="--print-delay: 1550ms">
+    <li>Me apasiona implementar tecnología: probar, evaluar e integrar herramientas <span class="kw-green">open source</span>.</li>
+    <li><span class="kw-blue">Kubernetes</span>, <span class="kw-magenta">Terraform</span> y los <span class="kw-orange">contenedores</span> son mis favoritos para construir infraestructura.</li>
+  </ul>
+
+  <div class="print" style="--print-delay: 1650ms">
+    <p class="holding">Productos del holding fintech Pagando:</p>
+
+    <div class="cards print" style="--print-delay: 1690ms">
+      <Card
+        v-for="p in products"
+        :key="p.name"
+        :href="p.href"
+        :label="p.name"
+        :description="p.description"
+        :icon="p.icon"
+        :color="p.color"
+      />
+    </div>
   </div>
 </template>
 
@@ -49,6 +59,24 @@ const products = [
 .prompt-line {
   margin: 1.5rem 0 0.75rem;
   color: var(--fg);
+}
+
+.kw-green,
+.kw-blue,
+.kw-magenta,
+.kw-orange {
+  font-family: var(--font-accent);
+  font-weight: 700;
+}
+
+.kw-green { color: var(--green); }
+.kw-blue { color: var(--blue); }
+.kw-magenta { color: var(--magenta); }
+.kw-orange { color: var(--orange); }
+
+.holding {
+  margin: 0 0 0.5rem 1.2rem;
+  color: var(--comment);
 }
 
 .cards {

@@ -16,27 +16,23 @@ defineProps({
     type: Number,
     default: 0,
   },
-  ok: {
-    type: Boolean,
-    default: true,
-  },
 });
 </script>
 
 <template>
   <div class="ctx-line">
-    <span class="nf os-icon">&#xf306;</span>
-    <span class="nf dir-icon">&#xf07c;</span>
+    <span class="nf os-icon" aria-hidden="true">&#xf306;</span>
+    <span class="nf dir-icon" aria-hidden="true">&#xf07c;</span>
     <span class="path">{{ path }}</span>
     <template v-if="branch">
       <span class="connector">on</span>
-      <span class="nf branch-icon">&#xe725;</span>
+      <span class="nf branch-icon" aria-hidden="true">&#xe725;</span>
       <span class="branch">{{ branch }}</span>
       <span v-if="modified" class="modified">!{{ modified }}</span>
       <span v-if="untracked" class="untracked">?{{ untracked }}</span>
     </template>
   </div>
-  <span class="arrow" :class="ok ? 'arrow-ok' : 'arrow-err'">&#10095;</span>
+  <span class="arrow" aria-hidden="true">&#10095;</span>
 </template>
 
 <style scoped>
@@ -55,7 +51,7 @@ defineProps({
 }
 
 .os-icon {
-  color: #a81d33;
+  color: var(--red);
 }
 
 .dir-icon {
@@ -81,7 +77,7 @@ defineProps({
 }
 
 .modified {
-  color: var(--yellow);
+  color: var(--warn);
 }
 
 .untracked {
@@ -91,13 +87,6 @@ defineProps({
 .arrow {
   font-weight: 700;
   margin-right: 0.6em;
-}
-
-.arrow-ok {
   color: var(--green);
-}
-
-.arrow-err {
-  color: var(--red);
 }
 </style>
