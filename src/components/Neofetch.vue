@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 import Prompt from './Prompt.vue';
+import giraffeAscii from './giraffeAscii.js';
 
 const uptime = ref('0s');
 let startedAt;
@@ -36,7 +37,7 @@ const info = [
   </div>
 
   <div class="neofetch print" style="--print-delay: 800ms">
-    <img class="nf-avatar" src="/avatar.svg" alt="avatar" />
+    <pre class="nf-ascii print" style="--print-delay: 800ms" role="img" aria-label="Logo: jirafa en arte ASCII"><span v-for="(line, i) in giraffeAscii" :key="i">{{ line }}</span></pre>
     <ul class="nf-info print" style="--print-delay: 840ms">
       <li v-for="item in info" :key="item.key">
         <span class="nf-key">{{ item.key }}</span>
@@ -58,16 +59,24 @@ const info = [
 
 .neofetch {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 1.5rem;
   margin: 0.5rem 0 0 1.2rem;
 }
 
-.nf-avatar {
-  width: 80px;
-  height: 80px;
+.nf-ascii {
+  margin: 0;
   flex-shrink: 0;
-  align-self: flex-start;
+  font-family: inherit;
+  font-size: 0.72em;
+  line-height: 1.15;
+  font-weight: 700;
+  color: var(--logo);
+}
+
+.nf-ascii > span {
+  display: block;
+  min-height: 1.15em;
 }
 
 .nf-info {
@@ -92,13 +101,14 @@ const info = [
 }
 
 @media (max-width: 480px) {
+  /* No caben lado a lado: el logo arriba y los datos debajo */
   .neofetch {
-    gap: 1rem;
+    flex-direction: column;
+    gap: 0.75rem;
   }
 
-  .nf-avatar {
-    width: 56px;
-    height: 56px;
+  .nf-ascii {
+    font-size: 0.6em;
   }
 }
 </style>
